@@ -26,28 +26,35 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("========== RESTORAN PRAKTIK 1 ==========");
+        System.out.println("========== Menu Restoran ==========");
         tampilkanMenuMakanan();
         tampilkanMenuMinuman();
         System.out.println();
-        System.out.println("Masukkan pesanan (maks. 4 baris). Format: Nama Menu = jumlah");
+        System.out.println("Masukkan pesanan (maks. 6 baris). Format: Nama Menu = jumlah");
         System.out.println("Contoh: Nasi Padang = 2");
         System.out.println("Kosongkan baris jika tidak dipakai.");
         System.out.println();
 
+				// Bisa ditambahkan secara manual jumlah menu yang akan dipesan
         String baris1 = bacaBaris(sc, "Pesanan 1: ");
         String baris2 = bacaBaris(sc, "Pesanan 2: ");
         String baris3 = bacaBaris(sc, "Pesanan 3: ");
         String baris4 = bacaBaris(sc, "Pesanan 4: ");
+        String baris5 = bacaBaris(sc, "Pesanan 5: ");
+        String baris6 = bacaBaris(sc, "Pesanan 6: ");
 
         Menu p1 = null;
         Menu p2 = null;
         Menu p3 = null;
         Menu p4 = null;
+        Menu p5 = null;
+        Menu p6 = null;
         int q1 = 0;
         int q2 = 0;
         int q3 = 0;
         int q4 = 0;
+        int q5 = 0;
+        int q6 = 0;
 
         if (!baris1.isEmpty()) {
             String nama1 = ambilNama(baris1);
@@ -89,14 +96,34 @@ public class Main {
                 System.err.println("(Abaikan baris 4: menu tidak dikenal)");
             }
         }
+        if (!baris5.isEmpty()) {
+            String nama5 = ambilNama(baris5);
+            int q = ambilJumlah(baris5);
+            p5 = cariMenu(nama5);
+            if (p5 != null && q > 0) {
+                q5 = q;
+            } else if (p5 == null) {
+                System.err.println("(Abaikan baris 5: menu tidak dikenal)");
+            }
+        }
+        if (!baris6.isEmpty()) {
+            String nama6 = ambilNama(baris6);
+            int q = ambilJumlah(baris6);
+            p6 = cariMenu(nama6);
+            if (p6 != null && q > 0) {
+                q6 = q;
+            } else if (p6 == null) {
+                System.err.println("(Abaikan baris 6: menu tidak dikenal)");
+            }
+        }
 
-        int subtotalPesanan = hitungSubtotalBaris(p1, q1, p2, q2, p3, q3, p4, q4);
+        int subtotalPesanan = hitungSubtotalBaris(p1, q1, p2, q2, p3, q3, p4, q4, p5, q5, p6, q6);
 
         // Keputusan: ada isi pesanan atau tidak (nested if)
         if (subtotalPesanan <= 0) {
             System.out.println("Tidak ada pesanan valid. Program selesai.");
         } else {
-            cetakStruk(p1, q1, p2, q2, p3, q3, p4, q4, subtotalPesanan);
+            cetakStruk(p1, q1, p2, q2, p3, q3, p4, q4, p5, q5, p6, q6, subtotalPesanan);
         }
         sc.close();
     }
@@ -135,21 +162,21 @@ public class Main {
 
     /** Pencarian menu: rantai if-else if untuk setiap elemen array (tanpa perulangan). */
     private static Menu cariMenu(String nama) {
-        if (nama.equals(DAFTAR_MENU[0].nama)) {
+        if (nama.equalsIgnoreCase(DAFTAR_MENU[0].nama)) {
             return DAFTAR_MENU[0];
-        } else if (nama.equals(DAFTAR_MENU[1].nama)) {
+        } else if (nama.equalsIgnoreCase(DAFTAR_MENU[1].nama)) {
             return DAFTAR_MENU[1];
-        } else if (nama.equals(DAFTAR_MENU[2].nama)) {
+        } else if (nama.equalsIgnoreCase(DAFTAR_MENU[2].nama)) {
             return DAFTAR_MENU[2];
-        } else if (nama.equals(DAFTAR_MENU[3].nama)) {
+        } else if (nama.equalsIgnoreCase(DAFTAR_MENU[3].nama)) {
             return DAFTAR_MENU[3];
-        } else if (nama.equals(DAFTAR_MENU[4].nama)) {
+        } else if (nama.equalsIgnoreCase(DAFTAR_MENU[4].nama)) {
             return DAFTAR_MENU[4];
-        } else if (nama.equals(DAFTAR_MENU[5].nama)) {
+        } else if (nama.equalsIgnoreCase(DAFTAR_MENU[5].nama)) {
             return DAFTAR_MENU[5];
-        } else if (nama.equals(DAFTAR_MENU[6].nama)) {
+        } else if (nama.equalsIgnoreCase(DAFTAR_MENU[6].nama)) {
             return DAFTAR_MENU[6];
-        } else if (nama.equals(DAFTAR_MENU[7].nama)) {
+        } else if (nama.equalsIgnoreCase(DAFTAR_MENU[7].nama)) {
             return DAFTAR_MENU[7];
         } else {
             return null;
@@ -221,7 +248,8 @@ public class Main {
                 m.promoMinumanJus ? " [promo jus]" : "");
     }
 
-    private static int hitungSubtotalBaris(Menu p1, int q1, Menu p2, int q2, Menu p3, int q3, Menu p4, int q4) {
+    private static int hitungSubtotalBaris(Menu p1, int q1, Menu p2, int q2, Menu p3, int q3, Menu p4, int q4,
+            Menu p5, int q5, Menu p6, int q6) {
         int t = 0;
         if (p1 != null && q1 > 0) {
             t += p1.harga * q1;
@@ -235,6 +263,12 @@ public class Main {
         if (p4 != null && q4 > 0) {
             t += p4.harga * q4;
         }
+        if (p5 != null && q5 > 0) {
+            t += p5.harga * q5;
+        }
+        if (p6 != null && q6 > 0) {
+            t += p6.harga * q6;
+        }
         return t;
     }
 
@@ -243,7 +277,7 @@ public class Main {
      * Hanya jika {@code subtotalAwal} &gt; {@link #BATAS_PROMO_MINUMAN}.
      */
     private static int hitungPotonganPromoMinuman(Menu p1, int q1, Menu p2, int q2, Menu p3, int q3, Menu p4, int q4,
-            int subtotalAwal) {
+            Menu p5, int q5, Menu p6, int q6, int subtotalAwal) {
         int potongan = 0;
         if (subtotalAwal > BATAS_PROMO_MINUMAN) {
             if (p1 != null && q1 > 1 && p1.promoMinumanJus) {
@@ -258,12 +292,18 @@ public class Main {
             if (p4 != null && q4 > 1 && p4.promoMinumanJus) {
                 potongan += (q4 / 2) * p4.harga;
             }
+            if (p5 != null && q5 > 1 && p5.promoMinumanJus) {
+                potongan += (q5 / 2) * p5.harga;
+            }
+            if (p6 != null && q6 > 1 && p6.promoMinumanJus) {
+                potongan += (q6 / 2) * p6.harga;
+            }
         }
         return potongan;
     }
 
     private static void cetakStruk(Menu p1, int q1, Menu p2, int q2, Menu p3, int q3, Menu p4, int q4,
-            int subtotalAwal) {
+            Menu p5, int q5, Menu p6, int q6, int subtotalAwal) {
         System.out.println();
         System.out.println("================ STRUK PEMBAYARAN ================");
 
@@ -279,11 +319,18 @@ public class Main {
         if (p4 != null && q4 > 0) {
             System.out.printf("%-16s x%-2d @ Rp %,d  =  Rp %,d%n", p4.nama, q4, p4.harga, p4.harga * q4);
         }
+        if (p5 != null && q5 > 0) {
+            System.out.printf("%-16s x%-2d @ Rp %,d  =  Rp %,d%n", p5.nama, q5, p5.harga, p5.harga * q5);
+        }
+        if (p6 != null && q6 > 0) {
+            System.out.printf("%-16s x%-2d @ Rp %,d  =  Rp %,d%n", p6.nama, q6, p6.harga, p6.harga * q6);
+        }
 
         System.out.println("--------------------------------------------------");
         System.out.printf("Subtotal item                    Rp %,d%n", subtotalAwal);
 
-        int potonganPromoMinuman = hitungPotonganPromoMinuman(p1, q1, p2, q2, p3, q3, p4, q4, subtotalAwal);
+        int potonganPromoMinuman = hitungPotonganPromoMinuman(
+                p1, q1, p2, q2, p3, q3, p4, q4, p5, q5, p6, q6, subtotalAwal);
         boolean pakaiPromoMinuman = potonganPromoMinuman > 0;
 
         int setelahPromoMinuman = subtotalAwal - potonganPromoMinuman;
@@ -367,7 +414,7 @@ public class Main {
     /** Nested if untuk demo struktur keputusan (alur promo vs batas nominal). */
     private static void nestedIfRingkasanSkenario(int subAwal, boolean adaPromoMinuman, boolean syaratDiskon10) {
         System.out.println();
-        System.out.println("--- Ringkasan struktur nested if ---");
+        System.out.println("--------------------------------------------------");
         if (subAwal > BATAS_PROMO_MINUMAN) {
             if (adaPromoMinuman) {
                 System.out.println("Subtotal menembus batas promo minuman; promo jus dipakai.");

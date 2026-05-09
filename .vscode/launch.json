@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Run Task 1 Main",
+      "request": "launch",
+      "mainClass": "Main",
+      "cwd": "${workspaceFolder}/task-1",
+      "console": "integratedTerminal"
+    }
+  ]
+}
