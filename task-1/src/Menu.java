@@ -2,16 +2,14 @@
  * Representasi satu item menu restoran (makanan atau minuman).
  */
 public class Menu {
-    /** Nama yang dipakai pemesan di input, misal: {@code Nasi Padang}. */
-    public final String nama;
-    /** Harga satuan dalam Rupiah. */
-    public final int harga;
-    /** Kategori besar: MAKANAN atau MINUMAN (untuk pengelompokan tampilan). */
-    public final String kategori;
-    /**
-     * True jika item minuman ikut promo khusus (mis. kelompok jus: beli satu gratis satu).
-     */
-    public final boolean promoMinumanJus;
+    /** Kode pesanan, mis. 01, 02 (diisi saat menu ditambahkan ke daftar). */
+    public String id;
+    public String nama;
+    public int harga;
+    /** MAKANAN atau MINUMAN */
+    public String kategori;
+    /** True jika minuman ikut promo jus (beli 1 gratis 1). */
+    public boolean promoMinumanJus;
 
     public Menu(String nama, int harga, String kategori, boolean promoMinumanJus) {
         this.nama = nama;
