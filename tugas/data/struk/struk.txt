@@ -1,0 +1,9 @@
+================ STRUK PEMBAYARAN ================
+Nasi Padang      x3  @ Rp 25.000 = Rp 75.000
+Jus Alpukat      x3  @ Rp 15.000 = Rp 45.000
+Nasi Ayam Kuah   x1  @ Rp 20.000 = Rp 20.000
+--------------------------------------------------
+Subtotal makanan/minuman     Rp 140.000
+Diskon: tidak ada item diskon pada pesanan.
+TOTAL BAYAR                  Rp 140.000
+==================================================
